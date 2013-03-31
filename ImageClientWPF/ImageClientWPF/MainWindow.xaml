@@ -1,0 +1,91 @@
+﻿<Window x:Class="ImageClientWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+		xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" 
+        Title="WPF Client"
+        Width="650"
+        Height="350"
+        mc:Ignorable="d">
+    <Grid>
+        <ListBox x:Name="listbox1" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel ItemHeight="250"
+                		ItemWidth="250"
+                		Orientation="Horizontal">
+                        <i:Interaction.Behaviors>
+                            <ei:FluidMoveBehavior AppliesTo="Children">
+                                <ei:FluidMoveBehavior.EaseY>
+                                    <CubicEase EasingMode="EaseOut"/>
+                                </ei:FluidMoveBehavior.EaseY>
+                                <ei:FluidMoveBehavior.EaseX>
+                                    <CubicEase EasingMode="EaseOut"/>
+                                </ei:FluidMoveBehavior.EaseX>
+                            </ei:FluidMoveBehavior>
+                        </i:Interaction.Behaviors>
+                    </WrapPanel>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <!--<EventSetter Event="Selected" Handler="ListBoxItemSelected"/>-->
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <DataTemplate.Resources>
+                        <Storyboard x:Key="Storyboard1"/>
+                    </DataTemplate.Resources>
+                    <StackPanel Margin="20" HorizontalAlignment="Center">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="VisualStateGroup">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0:0:1"/>
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="Start"/>
+                                <VisualState x:Name="Clicked">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="Rect">
+                                            <EasingDoubleKeyFrame Value="100"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="Rect">
+                                            <EasingDoubleKeyFrame Value="5"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="Rect">
+                                            <EasingColorKeyFrame Value="#FF367491"/>
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid x:Name="backgroundGrid" >
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                    <ei:GoToStateAction StateName="Clicked"/>
+                                    <ei:ControlStoryboardAction Storyboard="{StaticResource Storyboard1}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <Rectangle x:Name="Rect" Fill="Orange" RenderTransformOrigin="0.5,0.5" >
+                                <Rectangle.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                    </TransformGroup>
+                                </Rectangle.RenderTransform>
+                            </Rectangle>
+                            <Image Width="250" Height="250" Stretch="UniformToFill" Source="{Binding}"/>
+                            <!--<Label x:Name="label" HorizontalContentAlignment="Center"
+                    			Content="{Binding}"
+                    			FontFamily="Segoe UI"
+                    			FontSize="24"
+                    			Foreground="White" />-->
+                        </Grid>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <!--<Image Name="image1" Width="196" Height="196" Stretch="UniformToFill" />-->
+    </Grid>
+</Window>
