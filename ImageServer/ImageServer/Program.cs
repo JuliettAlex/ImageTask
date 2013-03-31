@@ -26,7 +26,7 @@ namespace ImageServer
         {
             TcpListener listener = new TcpListener(IP_ADDRESS, PORT);
             listener.Start();
-            Console.WriteLine("Server running, listening to port " + PORT + " at " + IP_ADDRESS);
+            Console.WriteLine("Сервер запущен, прослушивает порт " + PORT + " по адресу " + IP_ADDRESS);
 
             Task parentTask = Task.Factory.StartNew(() =>
             {

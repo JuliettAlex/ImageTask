@@ -21,6 +21,7 @@ namespace ImageClientWPF
         const int BUFFER_SIZE = 1024;
         const int PORT = 5676;
         IPAddress IP_ADDRESS = new IPAddress(new byte[] { 127, 0, 0, 1 });
+        const int DATA_LENGTH_OFFSET = 4;
 
         ObservableCollection<BitmapImage> items = new ObservableCollection<BitmapImage>();
 
@@ -36,8 +37,8 @@ namespace ImageClientWPF
                     {
                         if (networkStream.DataAvailable)
                         {
-                            byte[] length = new byte[4];
-                            int bytesRead = networkStream.Read(length, 0, 4);
+                            byte[] length = new byte[DATA_LENGTH_OFFSET];
+                            int bytesRead = networkStream.Read(length, 0, DATA_LENGTH_OFFSET);
                             int dataLength = BitConverter.ToInt32(length, 0);
                             int allBytesRead = 0;
 
@@ -58,7 +59,6 @@ namespace ImageClientWPF
                                     {
                                         using (MemoryStream memoryStream = new MemoryStream(data))
                                         {
-                                            memoryStream.Position = 0;
                                             BitmapImage bitmapImage = new BitmapImage();
                                             bitmapImage.BeginInit();
                                             bitmapImage.StreamSource = memoryStream;
