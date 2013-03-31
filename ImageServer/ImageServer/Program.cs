@@ -52,7 +52,7 @@ namespace ImageServer
                 {
                     Console.WriteLine("Клиентов " + countClient + " подключено");
 
-                    foreach (FileInfo f in GetFilesFromDir())
+                    foreach (FileInfo f in GetFilesFromDir(@"..\..\Images"))
                     {
                         byte[] data = File.ReadAllBytes(f.FullName);
                         byte[] dataLength = BitConverter.GetBytes(data.Length);
@@ -85,9 +85,9 @@ namespace ImageServer
             }
         }
 
-        private FileInfo[] GetFilesFromDir()
+        private FileInfo[] GetFilesFromDir(string path)
         {
-            DirectoryInfo dir = new DirectoryInfo("photos");
+            DirectoryInfo dir = new DirectoryInfo(path);
             FileInfo[] files = dir.GetFiles();
             return files;
         }
