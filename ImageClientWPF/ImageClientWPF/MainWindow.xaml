@@ -29,11 +29,6 @@
                     </WrapPanel>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="{x:Type ListBoxItem}">
-                    <!--<EventSetter Event="Selected" Handler="ListBoxItemSelected"/>-->
-                </Style>
-            </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <DataTemplate.Resources>
@@ -76,16 +71,10 @@
                                 </Rectangle.RenderTransform>
                             </Rectangle>
                             <Image Width="250" Height="250" Stretch="UniformToFill" Source="{Binding}"/>
-                            <!--<Label x:Name="label" HorizontalContentAlignment="Center"
-                    			Content="{Binding}"
-                    			FontFamily="Segoe UI"
-                    			FontSize="24"
-                    			Foreground="White" />-->
                         </Grid>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <!--<Image Name="image1" Width="196" Height="196" Stretch="UniformToFill" />-->
     </Grid>
 </Window>
